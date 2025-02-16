@@ -32,7 +32,7 @@ class Splash:
     COPYRIGHT_YEARS: str = "2021-2025"
     COPYRIGHT_STR: str = f"© {COPYRIGHT_YEARS} Travis Abendshien (CyanVoxel)"
     VERSION_STR: str = (
-        f"Version {VERSION} {(" (" + VERSION_BRANCH + ")") if VERSION_BRANCH else ""}"
+        f"Version {VERSION} {(' (' + VERSION_BRANCH + ')') if VERSION_BRANCH else ''}"
     )
 
     SPLASH_CLASSIC: str = "classic"

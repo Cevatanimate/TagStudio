@@ -163,7 +163,7 @@ class QtDriver(DriverMixin, QObject):
         self.thumb_size = 128
         self.spacing = None
 
-        self.branch: str = (" (" + VERSION_BRANCH + ")") if VERSION_BRANCH else ""
+        self.branch: str = f" ({VERSION_BRANCH})" if VERSION_BRANCH else ""
         self.base_title: str = f"TagStudio Alpha {VERSION}{self.branch}"
         # self.title_text: str = self.base_title
         # self.buffer = {}
@@ -721,7 +721,7 @@ class QtDriver(DriverMixin, QObject):
                 )
             except ParsingError as e:
                 self.main_window.statusbar.showMessage(
-                    f"{Translations["status.results.invalid_syntax"]} "
+                    f"{Translations['status.results.invalid_syntax']} "
                     f"\"{self.main_window.searchField.text()}\""
                 )
                 logger.error("[QtDriver] Could not filter items", error=e)
@@ -1068,7 +1068,7 @@ class QtDriver(DriverMixin, QObject):
             )
             msg.setText(
                 f"<h3>{msg_text}</h3>"
-                f"<h4>{Translations["trash.dialog.disambiguation_warning.singular"]}</h4>"
+                f"<h4>{Translations['trash.dialog.disambiguation_warning.singular']}</h4>"
                 f"{filename if filename else ''}"
                 f"{perm_warning}<br>"
             )
@@ -1080,7 +1080,7 @@ class QtDriver(DriverMixin, QObject):
             )
             msg.setText(
                 f"<h3>{msg_text}</h3>"
-                f"<h4>{Translations["trash.dialog.disambiguation_warning.plural"]}</h4>"
+                f"<h4>{Translations['trash.dialog.disambiguation_warning.plural']}</h4>"
                 f"{perm_warning}<br>"
             )
 

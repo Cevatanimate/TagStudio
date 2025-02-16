@@ -45,6 +45,7 @@ class MediaType(str, Enum):
     SPREADSHEET: str = "spreadsheet"
     TEXT: str = "text"
     VIDEO: str = "video"
+    MODEL_3D: str = "model_3d"
 
 
 @dataclass(frozen=True)
@@ -517,6 +518,12 @@ class MediaCategories:
         is_iana=True,
         name="video",
     )
+    MODEL_3D_TYPES: MediaCategory = MediaCategory(
+        media_type=MediaType.MODEL_3D,
+        extensions={".glb", ".gltf", ".obj", ".fbx", ".stl"},
+        is_iana=False,
+        name="3D model",
+    )
 
     ALL_CATEGORIES: list[MediaCategory] = [
         ADOBE_PHOTOSHOP_TYPES,
@@ -548,6 +555,7 @@ class MediaCategories:
         SPREADSHEET_TYPES,
         TEXT_TYPES,
         VIDEO_TYPES,
+        MODEL_3D_TYPES,
     ]
 
     @staticmethod

@@ -108,10 +108,10 @@ class FileAttributes(QWidget):
                 created = dt.fromtimestamp(filepath.stat().st_ctime)
             modified: dt = dt.fromtimestamp(filepath.stat().st_mtime)
             self.date_created_label.setText(
-                f"<b>Date Created:</b> {dt.strftime(created, "%a, %x, %X")}"  # TODO: Translate
+                f"<b>Date Created:</b> {dt.strftime(created, '%a, %x, %X')}"  # TODO: Translate
             )
             self.date_modified_label.setText(
-                f"<b>Date Modified:</b> {dt.strftime(modified, "%a, %x, %X")}"  # TODO: Translate
+                f"<b>Date Modified:</b> {dt.strftime(modified, '%a, %x, %X')}"  # TODO: Translate
             )
             self.date_created_label.setHidden(False)
             self.date_modified_label.setHidden(False)
@@ -148,9 +148,9 @@ class FileAttributes(QWidget):
             for i, part in enumerate(filepath.parts):
                 part_ = part.strip(os.path.sep)
                 if i != len(filepath.parts) - 1:
-                    file_str += f"{"\u200b".join(part_)}{separator}</b>"
+                    file_str += f"{'\u200b'.join(part_)}{separator}</b>"
                 else:
-                    file_str += f"<br><b>{"\u200b".join(part_)}</b>"
+                    file_str += f"<br><b>{'\u200b'.join(part_)}</b>"
             self.file_label.setText(file_str)
             self.file_label.setCursor(Qt.CursorShape.PointingHandCursor)
             self.opener = FileOpenerHelper(filepath)

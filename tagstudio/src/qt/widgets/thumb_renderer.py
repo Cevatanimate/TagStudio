@@ -10,6 +10,7 @@ import zipfile
 from copy import deepcopy
 from io import BytesIO
 from pathlib import Path
+import os
 
 import cv2
 import numpy as np
@@ -1009,6 +1010,25 @@ class ThumbRenderer(QObject):
             logger.error("Couldn't render thumbnail", filepath=filepath, error=type(e).__name__)
         return im
 
+    def _3d_thumb(self, filepath: Path, size: int) -> Image.Image:
+        try:
+            # Basit OpenGL önizleme oluştur
+            img = Image.new('RGB', (size, size), color='#2E3440')
+            draw = ImageDraw.Draw(img)
+            
+            # Basit wireframe çizimi
+            draw.rectangle([(10, 10), (size-10, size-10)], outline="white")
+            draw.line([(10,10), (size-10, size-10)], fill="white")
+            draw.line([(size-10,10), (10, size-10)], fill="white")
+            
+            # Dosya adını göster
+            filename = os.path.basename(filepath)
+            draw.text((15, size-25), f"3D: {filename}", fill="white")
+            return img
+        except Exception as e:
+            print(f"3D thumbnail creation error: {e}")
+            return Image.new('RGB', (size, size), color='red')
+
     def render(
         self,
         timestamp: float,
@@ -1317,6 +1337,11 @@ class ThumbRenderer(QObject):
                     ext, MediaCategories.SOURCE_ENGINE_TYPES, mime_fallback=True
                 ):
                     image = self._source_engine(_filepath)
+                # 3D Models ======================================================
+                elif MediaCategories.is_ext_in_category(
+                    ext, MediaCategories.MODEL_3D_TYPES, mime_fallback=True
+                ):
+                    image = self._3d_thumb(_filepath, adj_size)
                 # No Rendered Thumbnail ========================================
                 if not image:
                     raise NoRendererError
