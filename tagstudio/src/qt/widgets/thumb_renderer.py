@@ -1013,21 +1013,11 @@ class ThumbRenderer(QObject):
     def _3d_thumb(self, filepath: Path, size: int) -> Image.Image:
         try:
             # Basit OpenGL önizleme oluştur
-            img = Image.new('RGB', (size, size), color='#2E3440')
-            draw = ImageDraw.Draw(img)
-            
-            # Basit wireframe çizimi
-            draw.rectangle([(10, 10), (size-10, size-10)], outline="white")
-            draw.line([(10,10), (size-10, size-10)], fill="white")
-            draw.line([(size-10,10), (10, size-10)], fill="white")
-            
-            # Dosya adını göster
-            filename = os.path.basename(filepath)
-            draw.text((15, size-25), f"3D: {filename}", fill="white")
+            img = Image.new('RGBA', (size, size), color=(0,0,0,0))
             return img
         except Exception as e:
-            print(f"3D thumbnail creation error: {e}")
-            return Image.new('RGB', (size, size), color='red')
+            print(f"3D thumbnail oluşturma hatası: {e}")
+            return Image.new('RGBA', (size, size), color=(255,0,0,255))
 
     def render(
         self,

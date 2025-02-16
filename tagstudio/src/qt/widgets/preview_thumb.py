@@ -7,4 +7,7 @@ class PreviewThumb(QWidget):
     def __init__(self, library: Library, driver: "QtDriver"):
         # ... mevcut init kodu ...
         self.preview_3d = GLViewer()
-        self.preview_3d.hide() 
+        container = QWidget.createWindowContainer(self.preview_3d)
+        container.setMinimumSize(512, 512)
+        container.hide()
+        image_layout.addWidget(container) 
