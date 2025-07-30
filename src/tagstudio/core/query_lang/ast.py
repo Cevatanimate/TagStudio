@@ -91,7 +91,7 @@ class Not(AST):
 T = TypeVar("T")
 
 
-class BaseVisitor(ABC, Generic[T]):
+class BaseVisitor(ABC, Generic[T]):  # noqa: UP046
     def visit(self, node: AST) -> T:
         if isinstance(node, ANDList):
             return self.visit_and_list(node)

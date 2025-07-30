@@ -147,6 +147,13 @@ class SettingsPanel(PanelWidget):
             Translations["settings.show_filenames_in_grid"], self.show_filenames_checkbox
         )
 
+        # Show 3D Model Previews
+        self.model_preview_checkbox = QCheckBox()
+        self.model_preview_checkbox.setChecked(self.driver.settings.show_model_previews)
+        form_layout.addRow(
+            Translations["settings.show_model_previews"], self.model_preview_checkbox
+        )
+
         # Page Size
         self.page_size_line_edit = QLineEdit()
         self.page_size_line_edit.setText(str(self.driver.settings.page_size))
@@ -234,6 +241,7 @@ class SettingsPanel(PanelWidget):
             "open_last_loaded_on_startup": self.open_last_lib_checkbox.isChecked(),
             "autoplay": self.autoplay_checkbox.isChecked(),
             "show_filenames_in_grid": self.show_filenames_checkbox.isChecked(),
+            "show_model_previews": self.model_preview_checkbox.isChecked(),
             "page_size": int(self.page_size_line_edit.text()),
             "show_filepath": self.filepath_combobox.currentData(),
             "theme": self.theme_combobox.currentData(),
@@ -250,6 +258,7 @@ class SettingsPanel(PanelWidget):
         driver.settings.open_last_loaded_on_startup = settings["open_last_loaded_on_startup"]
         driver.settings.autoplay = settings["autoplay"]
         driver.settings.show_filenames_in_grid = settings["show_filenames_in_grid"]
+        driver.settings.show_model_previews = settings["show_model_previews"]
         driver.settings.page_size = settings["page_size"]
         driver.settings.show_filepath = settings["show_filepath"]
         driver.settings.theme = settings["theme"]

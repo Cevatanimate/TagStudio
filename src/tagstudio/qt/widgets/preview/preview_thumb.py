@@ -26,6 +26,7 @@ from tagstudio.qt.helpers.rounded_pixmap_style import RoundedPixmapStyle
 from tagstudio.qt.platform_strings import open_file_str, trash_term
 from tagstudio.qt.translations import Translations
 from tagstudio.qt.widgets.media_player import MediaPlayer
+from tagstudio.qt.widgets.preview.model_viewer import ModelViewer
 from tagstudio.qt.widgets.thumb_renderer import ThumbRenderer
 
 if TYPE_CHECKING:
@@ -99,6 +100,13 @@ class PreviewThumb(QWidget):
         self.media_player_page = QWidget()
         self._stacked_page_setup(self.media_player_page, self.media_player)
 
+        self.model_viewer = ModelViewer()
+        self.model_viewer.addAction(self.open_file_action)
+        self.model_viewer.addAction(self.open_explorer_action)
+        self.model_viewer.addAction(self.delete_action)
+        self.model_viewer_page = QWidget()
+        self._stacked_page_setup(self.model_viewer_page, self.model_viewer)
+
         self.thumb_renderer = ThumbRenderer(self.lib)
         self.thumb_renderer.updated.connect(
             lambda ts, i, s: (
@@ -122,6 +130,7 @@ class PreviewThumb(QWidget):
         self.image_layout.addWidget(self.preview_img_page)
         self.image_layout.addWidget(self.preview_gif_page)
         self.image_layout.addWidget(self.media_player_page)
+        self.image_layout.addWidget(self.model_viewer_page)
 
         self.setMinimumSize(*self.img_button_size)
 
@@ -211,6 +220,12 @@ class PreviewThumb(QWidget):
         else:
             self.media_player.stop()
             self.media_player.hide()
+
+        if preview == "model":
+            self.model_viewer.show()
+            self.image_layout.setCurrentWidget(self.model_viewer_page)
+        else:
+            self.model_viewer.hide()
 
         if preview in ["image", "audio"]:
             self.preview_img.show()
@@ -411,6 +426,24 @@ class PreviewThumb(QWidget):
             ext, MediaCategories.IMAGE_ANIMATED_TYPES, mime_fallback=True
         ):
             stats = self._update_animation(filepath, ext)
+
+        # 3D Models
+        elif MediaCategories.is_ext_in_category(
+            ext, MediaCategories.MODEL_TYPES, mime_fallback=True
+        ):
+            if self.driver.settings.show_model_previews:
+                self.model_viewer.load_model(filepath)
+                self.switch_preview("model")
+                stats = {}
+            else:
+                stats = self._update_image(filepath)
+                self.thumb_renderer.render(
+                    time.time(),
+                    filepath,
+                    (512, 512),
+                    self.devicePixelRatio(),
+                    update_on_ratio_change=True,
+                )
 
         # Other Types (Including Images)
         else:
