@@ -1,13 +1,14 @@
 {
-    "generic.add": "Aggiungi",
-    "generic.cancel": "Annulla",
-    "generic.delete": "Elimina",
-    "generic.recent_libraries": "Librerias Recenti",
-    "home.search": "Cerca",
-    "menu.file": "File",
-    "menu.window": "Finestra",
-    "tag.add": "Aggiungi Tag",
-    "tag.color": "Colore",
-    "tag.name": "Nome",
-    "tag.new": "Nuovo Tag"
+  "generic.add": "Aggiungi",
+  "generic.cancel": "Annulla",
+  "generic.delete": "Elimina",
+  "generic.recent_libraries": "Librerias Recenti",
+  "home.search": "Cerca",
+  "menu.file": "File",
+  "menu.window": "Finestra",
+  "tag.add": "Aggiungi Tag",
+  "tag.color": "Colore",
+  "tag.name": "Nome",
+  "tag.new": "Nuovo Tag",
+  "settings.show_model_previews": "Show 3D Model Previews"
 }

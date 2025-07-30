@@ -141,7 +141,7 @@ T = TypeVar("T")
 #                 | A   [B]<- C |
 #                 |[A]<- B    C |  Previous routes still exist
 #                 | A ->[D]     |  Stack is cut from [:A] on new route
-class History(Generic[T]):
+class History(Generic[T]):  # noqa: UP046
     __history: list[T]
     __index: int = 0
 
